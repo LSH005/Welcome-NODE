@@ -9,6 +9,8 @@ public class ButtonHandler : MonoBehaviour, I_MouseClickable
 
     public void OnLeftClicked()
     {
+        if (ScreenTransition.isTransitioning) return;
+
         switch (ButtonType)
         {
             case ButtonTypeEnum.Start:
@@ -30,7 +32,7 @@ public class ButtonHandler : MonoBehaviour, I_MouseClickable
 
     void RestartButton()
     {
-
+        ScreenTransition.ScreenTransitionGoto("MainMenu", "Null", Color.black, 0f, 1f, 0f, 0.5f, 0f);
     }
 
     void EndGameButton()
