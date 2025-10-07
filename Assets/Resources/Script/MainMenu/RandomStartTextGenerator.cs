@@ -16,7 +16,7 @@ public class RandomStartTextGenerator : MonoBehaviour
     {
         int randomNumber = Random.Range(0, randomTexts.Length - 1);
         string selectedText = randomTexts[randomNumber];
-
+        
         TMPtext.text = selectedText;
     }
 }

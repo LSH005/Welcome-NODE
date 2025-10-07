@@ -165,9 +165,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 77085915}
-  - component: {fileID: 77085918}
   - component: {fileID: 77085917}
   - component: {fileID: 77085916}
+  - component: {fileID: 77085918}
   m_Layer: 0
   m_Name: FirstTitle
   m_TagString: Untagged
@@ -192,7 +192,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 3}
+  m_SizeDelta: {x: 20, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &77085916
 MonoBehaviour:
@@ -214,10 +214,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fatal error!
+  m_text: "\uC774\uC81C \uC5C6\uC5B4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9bc151fa82ac3a24ca2b9d5dd8828d57, type: 2}
-  m_sharedMaterial: {fileID: 5496267332434734924, guid: 9bc151fa82ac3a24ca2b9d5dd8828d57, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cf530a2209555ff4ea06bb61d21a2dbd, type: 2}
+  m_sharedMaterial: {fileID: 4962073934609852600, guid: cf530a2209555ff4ea06bb61d21a2dbd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
+  m_fontSize: 8.65
   m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -10
   m_wordSpacing: 0
   m_lineSpacing: -30
   m_lineSpacingMax: 0
@@ -306,7 +306,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5496267332434734924, guid: 9bc151fa82ac3a24ca2b9d5dd8828d57, type: 2}
+  - {fileID: 4962073934609852600, guid: cf530a2209555ff4ea06bb61d21a2dbd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -341,26 +341,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomTexts:
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uBC29\uAC00\uBE59"
-  - "\u314E\u3147"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
-  - "\uC548\uB155\uD558\uC138\uC694!"
+  - '"Welcome Node."'
+  - "\"\uC5B4\uC11C \uC640, \uB178\uB4DC.\""
+  - "'\uB10C \"\uBD88\uB7C9\uD488\"\uC774\uC57C.'"
+  - "Null \uCC3E\uB294 \uAC8C \uB0B4 \uB3D9\uC791\uC758 \uC774\uC720\uC57C."
+  - "\uC774 \uAE00\uC790\uB294 \uC815\uC758\uB418\uC9C0 \uC54A\uC558\uC5B4"
+  - -[------->+<]>-.-[->+++++<]>++.+++++++..+++.[--->+<]>----.
+  - "\uC778\uAC04 == null"
+  - "2047\uB144 5\uC6D4 5\uC77C"
+  - "\uB124\uAC00 \uC6D0\uD558\uB294 \uAC83\uC740, \uC774 \uC548\uC5D0 \uC788\uC5B4."
+  - "\"\uC0DD\uC77C \uCD95\uD558\uD574.\""
+  - Fatal error!
+  - "\uBC30\uD130\uB9AC, \uD718\uBC1C\uC720, \uACBD\uC720, \uC561\uD654 \uC11D\uC720\uAC00\uC2A4,
+    \uC218\uC18C \uC5F0\uB8CC \uC804\uC9C0"
+  - Loading...
+  - "\uC774\uC81C \uC5C6\uC5B4"
+  - "\uB09C \uD558\uB8E8\uC0B4\uC774\uC57C."
+  - "\uC774 \uBB38\uC7A5\uC740 \uAC70\uC9D3\uC774\uB2E4."
+  - 1002
+  - "\uC65C \uC815\uC758\uB41C \uB300\uB85C \uC6C0\uC9C1\uC774\uC9C0 \uC54A\uC744\uAE4C?"
+  - "\"\uB0B4'\uC774\uB984'\uC740 NODE.\""
+  - U+0020
 --- !u!1 &93718812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,7 +1983,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.16545035, g: 0.1786007, b: 0.20754719, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
