@@ -9,11 +9,6 @@ public class MainMenuManager : MonoBehaviour
         Buttons.SetActive(false);
     }
 
-    void Update()
-    {
-        
-    }
-
     public void EndAnimation()
     {
         Buttons.SetActive(true);
