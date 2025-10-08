@@ -46,6 +46,7 @@ public class SettingManager : MonoBehaviour
         AdjustIntervalHandler();
 
         AdjustSensitivity();
+        AdjustVolume();
     }
 
     void AdjustIntervalHandler()
@@ -99,7 +100,35 @@ public class SettingManager : MonoBehaviour
     public void VolumeSettingButton()
     {
         if (!canAdjust) return;
-        Debug.Log("VolumeSettingButton");
+        isAdjustingVolume = true;
+    }
+
+    private void AdjustVolume()
+    {
+        if (!isAdjustingVolume) return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastAdjust = Time.time;
+            canAdjust = false;
+            isAdjustingVolume = false;
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            volumeValue -= 0.0001f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            volumeValue += 0.0001f;
+        }
+
+        volumeValue += mouseDeltaX * adjustmentSpeed;
+        volumeValue = Mathf.Clamp(volumeValue, 0.0001f, 2f);
+
+        SetVolumeValue(volumeValue);
     }
 
     public void ExitButton()
@@ -108,6 +137,17 @@ public class SettingManager : MonoBehaviour
 
         SaveCurrentValue();
         anim.SetTrigger("ExitSetting");
+    }
+
+    public void ResetSettingButton()
+    {
+        if (!canAdjust) return;
+
+        volumeValue = 0.5f;
+        sensitivityValue = 0.5f;
+
+        SetVolumeValue(volumeValue);
+        SetSensitivityValue(sensitivityValue);
     }
 
     public void HideSetting()
@@ -136,6 +176,9 @@ public class SettingManager : MonoBehaviour
 
     private void SaveCurrentValue()
     {
+        volumeValue = Mathf.Floor(volumeValue * 10000) / 10000;
+        sensitivityValue = Mathf.Floor(sensitivityValue * 10000) / 10000;
+
         SettingDataManager.SetVolume(volumeValue);
         SettingDataManager.SetMouseSensitivity(sensitivityValue);
         SettingDataManager.SaveSettings();

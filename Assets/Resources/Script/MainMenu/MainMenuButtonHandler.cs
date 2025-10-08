@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MainMenuButtonHandler : MonoBehaviour, I_MouseClickable
 {
-    public enum ButtonTypeEnum {Start, Restart, EndGame, Collection, Setting};
+    public enum ButtonTypeEnum {Start, Restart, EndGame, GameData, Setting};
 
     public ButtonTypeEnum ButtonType;
     public GameObject SettingUI;
@@ -38,7 +38,7 @@ public class MainMenuButtonHandler : MonoBehaviour, I_MouseClickable
             case ButtonTypeEnum.Setting:
                 SettingButton();
                 break;
-            case ButtonTypeEnum.Collection:
+            case ButtonTypeEnum.GameData:
                 CollectionButton();
                 break;
         }
@@ -61,8 +61,6 @@ public class MainMenuButtonHandler : MonoBehaviour, I_MouseClickable
 
     void SettingButton()
     {
-        Debug.Log("SettingButton");
-        
         if (SettingUI != null)
         {
             MainMenuButtonHandler.isSettingOn = true;
