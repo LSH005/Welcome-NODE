@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 95247261}
   - component: {fileID: 95247260}
   - component: {fileID: 95247259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +456,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &197429507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 526810207}
   - component: {fileID: 526810206}
   - component: {fileID: 526810205}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 561444444}
   - component: {fileID: 561444443}
   - component: {fileID: 561444442}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -847,8 +847,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 987806836}
-  m_Layer: 0
-  m_Name: GameObject
+  m_Layer: 7
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1282,13 +1282,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610165678}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 25, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1610165682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1301,13 +1301,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd86dfdb11acafc4e8afca9af315c432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 197429504}
-  offset: {x: 0, y: 0.5, z: -5}
-  minYAngle: -60
-  maxYAngle: 60
+  targetTransform: {fileID: 197429504}
+  offset: {x: 0, y: 0.5, z: 0}
+  minYAngle: -70
+  maxYAngle: 80
   zoomSpeed: 40
-  maxZoomDistance: -2
-  minZoomDistance: -5
+  cameraDistance: 4
+  maxZoomDistance: 5
+  minZoomDistance: 2
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1838052697
 GameObject:
   m_ObjectHideFlags: 0
