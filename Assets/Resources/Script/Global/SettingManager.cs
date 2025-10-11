@@ -1,7 +1,5 @@
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class SettingManager : MonoBehaviour
@@ -92,7 +90,7 @@ public class SettingManager : MonoBehaviour
         }
 
         sensitivityValue += mouseDeltaX * adjustmentSpeed;
-        sensitivityValue = Mathf.Clamp(sensitivityValue, 0.0001f, 2f);
+        sensitivityValue = Mathf.Clamp(sensitivityValue, 0.0001f, 10f);
 
         SetSensitivityValue(sensitivityValue);
     }
@@ -126,7 +124,7 @@ public class SettingManager : MonoBehaviour
         }
 
         volumeValue += mouseDeltaX * adjustmentSpeed;
-        volumeValue = Mathf.Clamp(volumeValue, 0.0001f, 2f);
+        volumeValue = Mathf.Clamp(volumeValue, 0.0001f, 10f);
 
         SetVolumeValue(volumeValue);
     }
@@ -164,13 +162,13 @@ public class SettingManager : MonoBehaviour
 
     private void SetSensitivityValue(float newValue)
     {
-        sensitivityValueBox.transform.localScale = new Vector2(newValue * 0.5f, 1);
+        sensitivityValueBox.transform.localScale = new Vector2(newValue * 0.1f, 1);
         sensitivityValuetText.text = (newValue * 100).ToString("F2") + "%";
     }
 
     private void SetVolumeValue(float newValue)
     {
-        volumeValueBox.transform.localScale = new Vector2(newValue * 0.5f, 1);
+        volumeValueBox.transform.localScale = new Vector2(newValue * 0.1f, 1);
         volumeValuetText.text = (newValue * 100).ToString("F2") + "%";
     }
 
