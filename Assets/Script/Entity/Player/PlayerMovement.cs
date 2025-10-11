@@ -11,6 +11,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("공격기 쿨다운")]
     public float attackCooldown;
     public float parryCooldown;
+    
+    [Header("회전")]
+    public Transform modelTransform;
+    public float maxTiltAngle;
+    public float rotationSpeed;
+
 
     private float horizontalInput;
     private float verticalInput;
@@ -23,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private Transform cameraTransform;
+    private Vector3 currentVelocityXZ;
 
     private void Awake()
     {
@@ -35,7 +42,13 @@ public class PlayerMovement : MonoBehaviour
         if (canOnlyMove) CanOnlyMoveTimeHandler();
 
         InputHandler();
+    }
+
+    private void FixedUpdate()
+    {
         MoveHandler();
+        RotationHandler();
+        TiltHandler();
     }
 
     void InputHandler()
@@ -83,10 +96,62 @@ public class PlayerMovement : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
-        Vector3 moveDirection = (camForward * verticalInput + camRight * horizontalInput);
-        Vector3 targetVelocity = moveDirection * moveSpeed;
-        targetVelocity.y = rb.velocity.y;
-        rb.velocity = targetVelocity;
+        Vector3 inputDirection = (camForward * verticalInput + camRight * horizontalInput).normalized;
+        Vector3 targetVelocity = inputDirection * moveSpeed;
+        if (!hasAnyInput)
+        {
+            currentVelocityXZ = Vector3.Lerp(currentVelocityXZ, Vector3.zero, deceleration * Time.deltaTime);
+        }
+
+        if (hasAnyInput)
+        {
+            Vector3 accelerationVector = inputDirection * acceleration * Time.deltaTime;
+            currentVelocityXZ += accelerationVector;
+
+            if (currentVelocityXZ.magnitude > moveSpeed)
+            {
+                currentVelocityXZ = currentVelocityXZ.normalized * moveSpeed;
+            }
+        }
+
+        Vector3 finalVelocity = new Vector3(currentVelocityXZ.x, rb.velocity.y, currentVelocityXZ.z);
+        rb.velocity = finalVelocity;
+    }
+
+    private void RotationHandler()
+    {
+        if (isMoving())
+        {
+            Vector3 movementDirection = currentVelocityXZ.normalized;
+
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
+    }
+
+    private void TiltHandler()
+    {
+        float velocityRatio = currentVelocityXZ.magnitude / moveSpeed;
+
+        float targetTiltX = velocityRatio * maxTiltAngle;
+
+        Quaternion targetRotation = Quaternion.Euler(
+            targetTiltX,
+            modelTransform.localEulerAngles.y,
+            modelTransform.localEulerAngles.z
+        );
+
+        modelTransform.localRotation = targetRotation;
+    }
+
+    bool isMoving()
+    {
+        return currentVelocityXZ.sqrMagnitude > 0.01f;
     }
 
     private void SetOnlyMoveTime(float duration)
