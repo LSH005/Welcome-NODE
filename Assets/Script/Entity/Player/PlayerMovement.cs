@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("¿òÁ÷ÀÓ")]
@@ -21,20 +22,30 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private float cantDoAnythingTimeButCanMoveForReal;
-    private float currentAcceleration;
+    private float transformationTimer;
+    private float afterLastInput;
 
     private bool canOnlyMove;
     private bool hasAnyInput;
+    private bool isIdle;
+    private bool isTransforming;
 
 
     private Rigidbody rb;
     private Transform cameraTransform;
     private Vector3 currentVelocityXZ;
+    private Animator anim;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         cameraTransform = Camera.main.transform;
+        anim = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        isIdle = true;
     }
 
     void Update()
@@ -42,13 +53,20 @@ public class PlayerMovement : MonoBehaviour
         if (canOnlyMove) CanOnlyMoveTimeHandler();
 
         InputHandler();
+        StatesHandler();
     }
 
     private void FixedUpdate()
     {
-        MoveHandler();
-        RotationHandler();
-        TiltHandler();
+        if (!isTransforming)
+        {
+            if (!isIdle && !isTransforming)
+            {
+                MoveHandler();
+                RotationHandler();
+                TiltHandler();
+            }
+        }
     }
 
     void InputHandler()
@@ -174,6 +192,54 @@ public class PlayerMovement : MonoBehaviour
         {
             cantDoAnythingTimeButCanMoveForReal = 0;
             canOnlyMove = false;
+        }
+    }
+
+    void StatesHandler()
+    {
+        if (!isTransforming)
+        {
+            if (isIdle)
+            {
+                if (hasAnyInput)
+                {
+                    isIdle = false;
+                    anim.SetTrigger("trigger_startMove");
+                    StartTransform(0.6f);
+                }
+            }
+            else
+            {
+                if (hasAnyInput) afterLastInput = 0;
+                else afterLastInput += Time.deltaTime;
+
+                if (afterLastInput >= 5f)
+                {
+                    isIdle = true;
+                    anim.SetTrigger("trigger_endMove");
+                    StartTransform(1.1f);
+                }
+            }
+        }
+        else
+        {
+            TransformTimeHandler();
+        }
+    }
+
+    void StartTransform(float duration)
+    {
+        isTransforming = true;
+        transformationTimer = duration;
+    }
+
+    void TransformTimeHandler()
+    {
+        transformationTimer -= Time.deltaTime;
+        if (transformationTimer <= 0)
+        {
+            isTransforming = false;
+            transformationTimer = 0;
         }
     }
 }
