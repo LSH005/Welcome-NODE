@@ -2469,6 +2469,7 @@ MonoBehaviour:
   rotationSpeed: 5
   Speed: 15
   deadPartsPrefabs: {fileID: 8463224546601243272, guid: 4d0d76bc379a27e488afca6e360cedcf, type: 3}
+  explosionParticle: {fileID: 2361185955504255711, guid: f741700d0bd50fe4fbbbb22976a42b84, type: 3}
 --- !u!65 &6564408377918963345
 BoxCollider:
   m_ObjectHideFlags: 0

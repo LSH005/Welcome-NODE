@@ -14,6 +14,7 @@ public class cl2044 : MonoBehaviour, I_Attackable
 
     [Header("µ¥µåÆÄÃ÷")]
     public GameObject deadPartsPrefabs;
+    public GameObject explosionParticle;
 
 
     private Transform playerTarget;
@@ -106,6 +107,7 @@ public class cl2044 : MonoBehaviour, I_Attackable
     public void SelfDestruction()
     {
         SummonDeadParts();
+        SummonParticle();
         Destroy(gameObject);
     }
 
@@ -134,5 +136,10 @@ public class cl2044 : MonoBehaviour, I_Attackable
         {
             Destroy(newDP);
         }
+    }
+
+    void SummonParticle()
+    {
+        Instantiate(explosionParticle, transform.position, Quaternion.identity);
     }
 }
