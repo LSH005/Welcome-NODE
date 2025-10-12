@@ -289,6 +289,11 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
         foreach (Collider hitCollider in hitColliders)
         {
+            if (hitCollider.gameObject == gameObject)
+            {
+                continue;
+            }
+
             I_Attackable target = hitCollider.GetComponent<I_Attackable>();
 
             if (target != null)
@@ -316,11 +321,12 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
     public void OnAttack()
     {
-
+        HP -= 0.1f;
     }
 
-    public void OnAttackWithDamage(float nothing)
+    public void OnAttackWithDamage(float damage)
     {
-        
+        HP -= damage;
+        Debug.Log("ouch");
     }
 }

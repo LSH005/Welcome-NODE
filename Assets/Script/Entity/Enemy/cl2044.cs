@@ -11,6 +11,7 @@ public class cl2044 : MonoBehaviour, I_Attackable
     public float attackRange = 10f;
     public float rotationSpeed = 5f;
     public float Speed = 15f;
+    public float explosionRange = 3;
 
     [Header("데드파츠")]
     public GameObject deadPartsPrefabs;
@@ -106,6 +107,24 @@ public class cl2044 : MonoBehaviour, I_Attackable
 
     public void SelfDestruction()
     {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRange);
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject == gameObject)
+            {
+                continue;
+            }
+
+            I_Attackable target = hitCollider.GetComponent<I_Attackable>();
+
+            if (target != null)
+            {
+                target.OnAttackWithDamage(0.75f);
+            }
+        }
+
+
         SummonDeadParts();
         SummonParticle();
         Destroy(gameObject);
@@ -114,7 +133,8 @@ public class cl2044 : MonoBehaviour, I_Attackable
 
     public void OnAttackWithDamage(float value)
     {
-        // 아무것도 없는 게 맞음
+        SummonDeadParts();
+        Destroy(gameObject);
     }
 
     public void OnAttack()
@@ -141,5 +161,11 @@ public class cl2044 : MonoBehaviour, I_Attackable
     void SummonParticle()
     {
         Instantiate(explosionParticle, transform.position, Quaternion.identity);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRange);
     }
 }
