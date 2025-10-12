@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, I_Attackable
 {
     [Header("움직임")]
     public float moveSpeed;
@@ -9,35 +9,49 @@ public class PlayerMovement : MonoBehaviour
     public float acceleration;
     public float deceleration;
 
-    [Header("공격기 쿨다운")]
+    [Header("공격기 쿨다운, 범위")]
     public float attackCooldown;
-    
+    public float attackRange = 2.0f;
+
     [Header("회전")]
     public Transform modelTransform;
     public float maxTiltAngle;
     public float rotationSpeed;
 
-
-    private float horizontalInput;
-    private float verticalInput;
-    private float cantDoAnythingTimeButCanMoveForReal;
-    private float transformationTimer;
-    private float afterLastInput;
-    private float gotoIdleTime = 5f;
-
-    private bool canOnlyMove;
-    private bool hasAnyInput;
-    private bool isIdle;
-    private bool isTransforming;
+    [Header("HP")]
+    public float maxHP = 1;
 
 
-    private Rigidbody rb;
-    private Transform cameraTransform;
-    private Vector3 currentVelocityXZ;
-    private Animator anim;
+    float horizontalInput;
+    float verticalInput;
+    float cantDoAnythingTimeButCanMoveForReal;
+    float transformationTimer;
+    float afterLastInput;
+    float gotoIdleTime = 5f;
+    float HP;
+
+    bool canOnlyMove;
+    bool hasAnyInput;
+    bool isIdle;
+    bool isTransforming;
+
+
+    Rigidbody rb;
+    Transform cameraTransform;
+    Vector3 currentVelocityXZ;
+    Animator anim;
+
+    public static PlayerMovement Instance { get; private set; }
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         rb = GetComponent<Rigidbody>();
         cameraTransform = Camera.main.transform;
         anim = GetComponent<Animator>();
@@ -47,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isIdle = true;
         anim.SetBool("bool_isIdle", true);
+        HP = maxHP;
     }
 
     void Update()
@@ -270,7 +285,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Attack()
     {
-        
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            I_Attackable target = hitCollider.GetComponent<I_Attackable>();
+
+            if (target != null)
+            {
+                target.OnAttack();
+            }
+        }
     }
 
     bool HasAnyMouseClick()
@@ -279,5 +304,23 @@ public class PlayerMovement : MonoBehaviour
         // GetMouseButtonDown(1): 우클릭
         // GetMouseButtonDown(2): 휠클릭
         return Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2);
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+
+    public void OnAttack()
+    {
+
+    }
+
+    public void OnAttackWithDamage(float nothing)
+    {
+        
     }
 }
