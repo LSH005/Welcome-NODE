@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("공격기 쿨다운")]
     public float attackCooldown;
-    public float parryCooldown;
     
     [Header("회전")]
     public Transform modelTransform;
@@ -24,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private float cantDoAnythingTimeButCanMoveForReal;
     private float transformationTimer;
     private float afterLastInput;
+    private float gotoIdleTime = 5f;
 
     private bool canOnlyMove;
     private bool hasAnyInput;
@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         isIdle = true;
+        anim.SetBool("bool_isIdle", true);
     }
 
     void Update()
@@ -54,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
         InputHandler();
         StatesHandler();
+
+        if (!canOnlyMove && !isTransforming)
+        {
+            AttackHandler();
+        }
     }
 
     private void FixedUpdate()
@@ -174,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetOnlyMoveTime(float duration)
     {
-        if (duration > 0)
+        if (duration <= 0)
         {
             cantDoAnythingTimeButCanMoveForReal = 0;
             canOnlyMove = false;
@@ -197,6 +203,8 @@ public class PlayerMovement : MonoBehaviour
 
     void StatesHandler()
     {
+        LastInputTimer();
+
         if (!isTransforming)
         {
             if (isIdle)
@@ -204,27 +212,29 @@ public class PlayerMovement : MonoBehaviour
                 if (hasAnyInput)
                 {
                     isIdle = false;
+                    anim.SetBool("bool_isIdle", false);
                     anim.SetTrigger("trigger_startMove");
                     StartTransform(0.6f);
                 }
             }
-            else
+            else if (afterLastInput >= gotoIdleTime)
             {
-                if (hasAnyInput) afterLastInput = 0;
-                else afterLastInput += Time.deltaTime;
-
-                if (afterLastInput >= 5f)
-                {
-                    isIdle = true;
-                    anim.SetTrigger("trigger_endMove");
-                    StartTransform(1.1f);
-                }
+                isIdle = true;
+                anim.SetBool("bool_isIdle", true);
+                anim.SetTrigger("trigger_endMove");
+                StartTransform(1.1f);
             }
         }
         else
         {
             TransformTimeHandler();
         }
+    }
+
+    void LastInputTimer()
+    {
+        if (hasAnyInput) afterLastInput = 0;
+        else afterLastInput += Time.deltaTime;
     }
 
     void StartTransform(float duration)
@@ -241,5 +251,33 @@ public class PlayerMovement : MonoBehaviour
             isTransforming = false;
             transformationTimer = 0;
         }
+    }
+
+    void AttackHandler()
+    {
+        if (HasAnyMouseClick())
+        {
+            anim.SetTrigger("trigger_attack");
+            SetOnlyMoveTime(attackCooldown);
+            if (cantDoAnythingTimeButCanMoveForReal * 2 > gotoIdleTime - afterLastInput)
+            {
+                afterLastInput -= cantDoAnythingTimeButCanMoveForReal * 2;
+                afterLastInput = Mathf.Max(0, afterLastInput);
+            }
+            Attack();
+        }
+    }
+
+    void Attack()
+    {
+        
+    }
+
+    bool HasAnyMouseClick()
+    {
+        // GetMouseButtonDown(0): 좌클릭
+        // GetMouseButtonDown(1): 우클릭
+        // GetMouseButtonDown(2): 휠클릭
+        return Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2);
     }
 }
