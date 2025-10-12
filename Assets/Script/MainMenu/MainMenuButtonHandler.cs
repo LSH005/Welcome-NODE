@@ -46,7 +46,7 @@ public class MainMenuButtonHandler : MonoBehaviour, I_MouseClickable
 
     void StartButton()
     {
-        Debug.Log("StartButton");
+        ScreenTransition.ScreenTransitionGoto("EntityMovement", "Null", Color.black, 0f, 0.2f, 0f, 0.5f, 0f);
     }
 
     void RestartButton()

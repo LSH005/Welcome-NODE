@@ -21,7 +21,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private float rotationX;
     private float rotationY;
-    private float rotationSpeed = 5f;
+    private float rotationSpeed;
 
     private Vector3 targetPos;
     private Quaternion currentRotation;
@@ -44,6 +44,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void CameraRotationHandler()
     {
+        rotationSpeed = 5 * SettingDataManager.CurrentSettings.mouseSensitivity;
         rotationX += Input.GetAxis("Mouse X") * rotationSpeed;
         rotationY -= Input.GetAxis("Mouse Y") * rotationSpeed;
         rotationY = Mathf.Clamp(rotationY, minYAngle, maxYAngle);
