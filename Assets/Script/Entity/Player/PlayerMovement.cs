@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
     [Header("HP")]
     public float maxHP = 1;
 
+    [Header("ÀÌÆåÆ®")]
+    public GameObject flyEffect;
+    public float flyEffectCycle;
+
 
     float horizontalInput;
     float verticalInput;
@@ -29,6 +33,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
     float afterLastInput;
     float gotoIdleTime = 5f;
     float HP;
+    float lastFlyEffect;
 
     bool canOnlyMove;
     bool hasAnyInput;
@@ -86,6 +91,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
                 MoveHandler();
                 RotationHandler();
                 TiltHandler();
+                FlyEffectHandler();
             }
         }
     }
@@ -270,7 +276,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
     void AttackHandler()
     {
-        if (HasAnyMouseClick())
+        if (HasAttackKeyClick())
         {
             anim.SetTrigger("trigger_attack");
             SetOnlyMoveTime(attackCooldown);
@@ -303,12 +309,23 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
         }
     }
 
-    bool HasAnyMouseClick()
+    bool HasAttackKeyClick()
     {
-        // GetMouseButtonDown(0): ÁÂÅ¬¸¯
-        // GetMouseButtonDown(1): ¿ìÅ¬¸¯
-        // GetMouseButtonDown(2): ÈÙÅ¬¸¯
-        return Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2);
+        bool mouse = Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2);
+        bool key = Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.X);
+
+        return mouse || key;
+    }
+
+    void FlyEffectHandler()
+    {
+        lastFlyEffect += Time.deltaTime;
+        if ( lastFlyEffect > flyEffectCycle)
+        {
+            Quaternion flyEffectRotation = Quaternion.Euler(-90f, 0f, 0f);
+            Instantiate(flyEffect, transform.position, flyEffectRotation);
+            lastFlyEffect = 0;
+        }
     }
 
 
@@ -327,6 +344,6 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
     public void OnAttackWithDamage(float damage)
     {
         HP -= damage;
-        Debug.Log("ouch");
+        Debug.Log($"ouch {HP}");
     }
 }
