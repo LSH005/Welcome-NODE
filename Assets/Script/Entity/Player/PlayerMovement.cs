@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
     [Header("공격기 쿨다운, 범위")]
     public float attackCooldown;
+    public float parryDuration;
     public float attackRange = 2.0f;
+    public bool isParring;
 
     [Header("회전")]
     public Transform modelTransform;
@@ -34,6 +36,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
     float gotoIdleTime = 5f;
     float HP;
     float lastFlyEffect;
+    float currentParryDuration;
 
     bool canOnlyMove;
     bool hasAnyInput;
@@ -79,6 +82,11 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
         if (!canOnlyMove && !isTransforming)
         {
             AttackHandler();
+        }
+
+        if (isParring)
+        {
+            ParryDurationHandler();
         }
     }
 
@@ -286,6 +294,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
                 afterLastInput = Mathf.Max(0, afterLastInput);
             }
             Attack();
+            StartParry();
         }
     }
 
@@ -315,6 +324,21 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
         bool key = Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.X);
 
         return mouse || key;
+    }
+
+    void StartParry()
+    {
+        isParring = true;
+        currentParryDuration = 0;
+    }
+
+    void ParryDurationHandler()
+    {
+        currentParryDuration += Time.deltaTime;
+        if (currentParryDuration >= parryDuration)
+        {
+            isParring = false;
+        }
     }
 
     void FlyEffectHandler()
