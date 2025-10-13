@@ -41,7 +41,6 @@ public class cl2044 : MonoBehaviour, I_Attackable
     {
         float distanceToTarget = Vector3.Distance(transform.position, playerTarget.position);
 
-
         switch (currentState)
         {
             case cl2044State.Idle:
