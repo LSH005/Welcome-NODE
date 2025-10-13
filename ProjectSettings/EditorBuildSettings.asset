@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EntityMovement.unity
     guid: 58a6d466636d8bf498acd71d1b2ea141
+  - enabled: 1
+    path: Assets/Scenes/ExitGame.unity
+    guid: 5c0e825a864d55e40a5b0ce78bfd3d2a
   m_configObjects: {}

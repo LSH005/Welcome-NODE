@@ -214,7 +214,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uC81C \uC5C6\uC5B4"
+  m_text: W_l__m_, _o__
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf530a2209555ff4ea06bb61d21a2dbd, type: 2}
   m_sharedMaterial: {fileID: 4962073934609852600, guid: cf530a2209555ff4ea06bb61d21a2dbd, type: 2}
@@ -343,24 +343,24 @@ MonoBehaviour:
   randomTexts:
   - '"Welcome Node."'
   - "\"\uC5B4\uC11C \uC640, \uB178\uB4DC.\""
-  - "'\uB10C \"\uBD88\uB7C9\uD488\"\uC774\uC57C.'"
-  - "\uC6A9\uC0AC\uB294 \uC8FD\uACE0"
-  - "\uC774 \uAE00\uC790\uB294 \uC815\uC758\uB418\uC9C0 \uC54A\uC558\uC5B4"
+  - "\uC548\uB155?"
+  - CLEAR
+  - "(^^)b \u2605"
   - -[------->+<]>-.-[->+++++<]>++.+++++++..+++.[--->+<]>----.
-  - "\uC778\uAC04 == null"
+  - W_l__m_, _o__
   - "2047\uB144 5\uC6D4 5\uC77C"
-  - "\uB124\uAC00 \uC6D0\uD558\uB294 \uAC83\uC740, \uC774 \uC548\uC5D0 \uC788\uC5B4."
-  - "\"\uC0DD\uC77C \uCD95\uD558\uD574.\""
+  - Update()
+  - "\uC0DD\uC77C \uCD95\uD558\uD574 \uB178\uB4DC!"
   - Fatal error!
   - "\uBC30\uD130\uB9AC, \uD718\uBC1C\uC720, \uACBD\uC720, \uC561\uD654 \uC11D\uC720\uAC00\uC2A4,
     \uC218\uC18C \uC5F0\uB8CC \uC804\uC9C0"
   - Loading...
-  - "\uC774\uC81C \uC5C6\uC5B4"
-  - "\uB09C \uD558\uB8E8\uC0B4\uC774\uC57C."
+  - "\uC778\uAC04\uC740 \uC5B4\uB514\uC5D0"
+  - 1
   - "\uC774 \uBB38\uC7A5\uC740 \uAC70\uC9D3\uC774\uB2E4."
   - 1002
-  - "\uC65C \uC815\uC758\uB41C \uB300\uB85C \uC6C0\uC9C1\uC774\uC9C0 \uC54A\uC744\uAE4C?"
-  - "\"\uB0B4'\uC774\uB984'\uC740 NODE.\""
+  - '[ ]'
+  - "\uB178\uB4DC?"
   - U+0020
 --- !u!1 &93718812
 GameObject:

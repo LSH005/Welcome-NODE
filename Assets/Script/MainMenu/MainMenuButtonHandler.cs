@@ -46,6 +46,8 @@ public class MainMenuButtonHandler : MonoBehaviour, I_MouseClickable
 
     void StartButton()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         ScreenTransition.ScreenTransitionGoto("EntityMovement", "Null", Color.black, 0f, 0.2f, 0f, 0.5f, 0f);
     }
 
@@ -56,7 +58,7 @@ public class MainMenuButtonHandler : MonoBehaviour, I_MouseClickable
 
     void EndGameButton()
     {
-        Debug.Log("EndGameButton");
+        ScreenTransition.ScreenTransitionGoto("ExitGame", "Null", Color.black, 0f, 0.4f, 0f, 0.5f, 0f);
     }
 
     void SettingButton()
