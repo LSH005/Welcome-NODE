@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class PlayerMovement : MonoBehaviour, I_Attackable
@@ -22,10 +23,12 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
     [Header("HP")]
     public float maxHP = 1;
+    public float hpRegenStartTime = 4;
 
     [Header("¿Ã∆Â∆Æ")]
     public GameObject flyEffect;
     public float flyEffectCycle;
+    public GameObject ppvObj;
 
 
     float horizontalInput;
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
     float HP;
     float lastFlyEffect;
     float currentParryDuration;
+    float lastHitTime;
 
     bool canOnlyMove;
     bool hasAnyInput;
@@ -48,6 +52,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
     Transform cameraTransform;
     Vector3 currentVelocityXZ;
     Animator anim;
+    private PostProcessVolume ppv;
 
     public static PlayerMovement Instance { get; private set; }
 
@@ -63,6 +68,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
         rb = GetComponent<Rigidbody>();
         cameraTransform = Camera.main.transform;
         anim = GetComponent<Animator>();
+        ppv = ppvObj.GetComponent<PostProcessVolume>();
     }
 
     private void Start()
@@ -88,6 +94,8 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
         {
             ParryDurationHandler();
         }
+
+        HpHandler();
     }
 
     private void FixedUpdate()
@@ -352,6 +360,27 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
         }
     }
 
+    void HpHandler()
+    {
+        if (HP <= 0)
+        {
+            Dead();
+            return;
+        }
+        if (HP != maxHP && lastHitTime + hpRegenStartTime < Time.time)
+        {
+            HP += Time.deltaTime / 3;
+            HP = Mathf.Min(maxHP, HP);
+        }
+        
+        ppv.weight = maxHP - HP;
+    }
+
+    void Dead()
+    {
+        Debug.Log("Dead");
+    }
+
 
     private void OnDrawGizmos()
     {
@@ -362,12 +391,17 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
     public void OnAttack()
     {
-        HP -= 0.1f;
+        GetDamage(0.1f);
     }
 
     public void OnAttackWithDamage(float damage)
     {
+        GetDamage(damage);
+    }
+
+    void GetDamage(float damage)
+    {
         HP -= damage;
-        Debug.Log($"ouch {HP}");
+        lastHitTime = Time.time;
     }
 }

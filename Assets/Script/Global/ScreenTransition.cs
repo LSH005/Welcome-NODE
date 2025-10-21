@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScreenTransition : MonoBehaviour
 {
-    public static ScreenTransition Instance;
+    public static ScreenTransition Instance { get; private set; }
     public static bool isTransitioning = false;
     public static bool isRoading = false;
     public static bool isNextSceneLoaded = false;
