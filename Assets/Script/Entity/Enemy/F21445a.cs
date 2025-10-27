@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class F21445a : MonoBehaviour, I_Attackable
+public class F21445a : MonoBehaviour, I_Attackable, I_Enemy
 {
     [Header("¼Óµµ")]
     public float rotationSpeed = 2.0f;
@@ -249,5 +249,15 @@ public class F21445a : MonoBehaviour, I_Attackable
         {
             Destroy(newDP);
         }
+    }
+
+    public float GetHealth()
+    {
+        return isRage ? 0.25f : 1f;
+    }
+
+    public string GetName()
+    {
+        return "F21445a";
     }
 }

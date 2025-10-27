@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-public class cl2044 : MonoBehaviour, I_Attackable
+public class cl2044 : MonoBehaviour, I_Attackable, I_Enemy
 {
     public enum cl2044State { Idle, Chasing, Charging, selfDestruction }
     private cl2044State currentState = cl2044State.Idle;
@@ -166,5 +166,15 @@ public class cl2044 : MonoBehaviour, I_Attackable
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRange);
+    }
+
+    public float GetHealth()
+    {
+        return 1;
+    }
+
+    public string GetName()
+    {
+        return "cl2044";
     }
 }

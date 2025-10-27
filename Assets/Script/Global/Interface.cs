@@ -11,3 +11,10 @@ public interface I_Attackable
 
     void OnAttackWithDamage(float damage);
 }
+
+public interface I_Enemy
+{
+    float GetHealth();
+
+    string GetName();
+}

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Straw : MonoBehaviour, I_Attackable
+public class Straw : MonoBehaviour, I_Attackable, I_Enemy
 {
     [Header("¼³Á¤")]
     public float attackRange = 10f;
@@ -82,5 +82,15 @@ public class Straw : MonoBehaviour, I_Attackable
         {
             Destroy(newDP);
         }
+    }
+
+    public float GetHealth()
+    {
+        return 1;
+    }
+
+    public string GetName()
+    {
+        return "Straw";
     }
 }
