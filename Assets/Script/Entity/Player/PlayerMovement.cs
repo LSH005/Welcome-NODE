@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class PlayerMovement : MonoBehaviour, I_Attackable
@@ -378,7 +379,11 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
     void Dead()
     {
-        ScreenTransition.ScreenTransitionGoto("Lv_1", "Null", Color.red, 0f, 0f, 0f, 0.5f, 0f);
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+
+        ScreenTransition.ScreenTransitionGoto(sceneName, "Null", Color.red, 0f, 0f, 0f, 0.5f, 0f);
     }
 
 
