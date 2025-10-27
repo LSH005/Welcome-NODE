@@ -48,7 +48,7 @@ public class MainMenuButtonHandler : MonoBehaviour, I_MouseClickable
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        ScreenTransition.ScreenTransitionGoto("EntityMovement", "Null", Color.black, 0f, 0.2f, 0f, 0.5f, 0f);
+        ScreenTransition.ScreenTransitionGoto("Lv_1", "Null", Color.black, 0f, 0.2f, 0f, 0.5f, 0f);
     }
 
     void RestartButton()

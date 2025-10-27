@@ -48,7 +48,7 @@ MonoBehaviour:
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  offsetHeight: 0.01
+  offsetHeight: 0.05
   maxScale: 0.3
   duration: 0.25
 --- !u!212 &126451249935231151

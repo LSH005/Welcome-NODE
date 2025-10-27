@@ -378,7 +378,7 @@ public class PlayerMovement : MonoBehaviour, I_Attackable
 
     void Dead()
     {
-        Debug.Log("Dead");
+        ScreenTransition.ScreenTransitionGoto("Lv_1", "Null", Color.red, 0f, 0f, 0f, 0.5f, 0f);
     }
 
 
